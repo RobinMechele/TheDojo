@@ -1,0 +1,109 @@
+<UserControl x:Class="TheDojo.Views.OverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TheDojo.ViewModels"
+             xmlns:controls="clr-namespace:TheDojo.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:OverviewViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,24">
+        <StackPanel>
+            <TextBlock Text="No agent activity in this period. Pick a longer period, or run Claude Code or the Copilot CLI and refresh."
+                       Style="{StaticResource Secondary}" TextWrapping="Wrap" Margin="0,0,0,16"
+                       Visibility="{Binding IsEmpty, Converter={StaticResource VisibleWhen}}" />
+
+            <!-- Hero + chart -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="340" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Card}" Padding="20,18" Margin="0,0,12,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="{Binding SpendCaption}" Style="{StaticResource Label}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Spend}" Style="{StaticResource Hero}" AutomationProperties.AutomationId="HeroSpend" />
+                                <TextBlock Text="{Binding SpendTrend}" Foreground="{Binding SpendTrendBrush}" FontWeight="SemiBold" Margin="14,0,0,12" VerticalAlignment="Bottom"
+                                           Visibility="{Binding SpendTrend, Converter={StaticResource VisibleWhen}}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <controls:StackedBarChart Grid.Row="1" MinHeight="220" Margin="0,12,0,0" Columns="{Binding Columns}"
+                                                  SeriesNames="{Binding SeriesNames}" SeriesBrushes="{Binding SeriesBrushes}" Format="Money" />
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="52,10,0,0">
+                            <Border Style="{StaticResource Swatch}" Background="{StaticResource ClaudeBrush}" />
+                            <TextBlock Text="Claude Code" Style="{StaticResource Muted}" Margin="0,0,16,0" />
+                            <Border Style="{StaticResource Swatch}" Background="{StaticResource CopilotBrush}" />
+                            <TextBlock Text="Copilot" Style="{StaticResource Muted}" />
+                            <TextBlock Text="{Binding ChartTitle}" Style="{StaticResource Muted}" Margin="24,0,0,0" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Belt + limits -->
+                <StackPanel Grid.Column="1">
+                    <Border Style="{StaticResource Card}" Padding="18,16" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Dojo score" Style="{StaticResource Label}" />
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,8">
+                                <TextBlock Text="{Binding Score}" Style="{StaticResource StatValue}" FontSize="34" Margin="0" />
+                                <TextBlock Text="/ 100" Style="{StaticResource Muted}" Margin="6,0,0,7" VerticalAlignment="Bottom" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Width="40" Height="10" CornerRadius="2" Background="{Binding BeltBrush}" BorderBrush="{StaticResource BorderStrongBrush}" BorderThickness="1" VerticalAlignment="Center" />
+                                <TextBlock Margin="10,0,0,0" FontWeight="SemiBold"><Run Text="{Binding Belt, Mode=OneWay}" /><Run Text=" belt" /></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Card}" Padding="18,16">
+                        <StackPanel>
+                            <TextBlock Text="Plan limits" Style="{StaticResource CardTitle}" />
+                            <TextBlock Text="Checking…" Style="{StaticResource Muted}" Visibility="{Binding Limits, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                            <ItemsControl ItemsSource="{Binding Limits}" Focusable="False" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <!-- Key figures -->
+            <ItemsControl ItemsSource="{Binding Tiles}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <!-- Lessons + where it went -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0,0,12,0">
+                    <TextBlock Text="Top lessons" Style="{StaticResource CardTitle}" />
+                    <ItemsControl ItemsSource="{Binding Lessons}" ItemTemplate="{StaticResource LessonTemplate}" Focusable="False" />
+                    <TextBlock Text="Nothing to point out yet." Style="{StaticResource Muted}" Visibility="{Binding Lessons, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                </StackPanel>
+                <Border Grid.Column="1" Style="{StaticResource Card}" Margin="0,30,12,12" VerticalAlignment="Top">
+                    <StackPanel>
+                        <TextBlock Text="Spend by model" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding Models}" Focusable="False" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Card}" Margin="0,30,0,12" VerticalAlignment="Top">
+                    <StackPanel>
+                        <TextBlock Text="Spend by project" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding Projects}" Focusable="False" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

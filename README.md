@@ -45,7 +45,15 @@ dotnet run --project src/TheDojo.Cli -- limits
 
 Options: `--range 24h|7d|30d|90d|all`, `--provider claude|copilot`, `--project NAME`, `--claude-home DIR`, `--copilot-home DIR`, `--cache DIR`, `--offline`.
 
-**Self-contained build:** `powershell -File build/publish.ps1` runs the tests and publishes the app and CLI to `artifacts/`.
+**Self-contained build:** `powershell -File build/publish.ps1` runs the tests and publishes the app and CLI to `artifacts/` (release files, with checksums, in `artifacts/release/`).
+
+## Install and updates
+
+Download `TheDojo-win-x64.exe` (the app) and optionally `dojo-win-x64.exe` (the CLI) from the [latest release](https://github.com/RobinMechele/TheDojo/releases/latest) and run it. Nothing to install.
+
+The app checks the latest GitHub release when it starts. If there is a newer one, a banner offers **Update and restart**: it downloads the new exe, checks it against the release's `SHA256SUMS.txt` (a mismatch discards it), swaps it in and restarts. The old exe is kept as `TheDojo.exe.old` until the next start. Updates apply only to the downloaded exe, never to `dotnet run`, and are off with `--offline` or `DOJO_NO_UPDATE=1`. The only request is to `api.github.com`; nothing about your usage is sent.
+
+**Releasing** (maintainers): push a tag, `git tag v1.1.0; git push origin v1.1.0`. The Release workflow tests, publishes, and attaches `TheDojo-win-x64.exe`, `dojo-win-x64.exe` and `SHA256SUMS.txt`. CI builds and tests every push and pull request.
 
 ## Privacy
 

@@ -1,0 +1,65 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+publish/
+out/
+
+# .NET / NuGet
+*.nupkg
+*.snupkg
+.nuget/
+project.lock.json
+*.binlog
+msbuild.log
+
+# Tests and coverage
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+coverage.*.xml
+tests/TheDojo.UiTests/Screenshots/
+tests/TheDojo.UiTests/Snapshots/*.actual.png
+tests/TheDojo.UiTests/Snapshots/*.diff.png
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+_ReSharper*/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Local data The Dojo itself writes (caches, limit history) and local overrides
+.dojo/
+*.local.json
+.env
+.env.*
+
+# Claude Code / Copilot local state
+.claude/settings.local.json
+.claude/worktrees/
+.copilot/
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temp
+*.tmp
+*.bak
+*.swp
+~$*

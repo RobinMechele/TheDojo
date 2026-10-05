@@ -1,0 +1,56 @@
+<UserControl x:Class="TheDojo.Views.LimitsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TheDojo.ViewModels"
+             xmlns:controls="clr-namespace:TheDojo.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:LimitsViewModel}">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,24">
+        <StackPanel>
+            <TextBlock Text="{Binding Checked}" Style="{StaticResource Muted}" Margin="0,0,0,12" />
+            <ItemsControl ItemsSource="{Binding Providers}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:ProviderLimitsItem}">
+                        <Border Style="{StaticResource Card}" Margin="0,0,12,12" Padding="20,16" VerticalAlignment="Top">
+                            <ContentPresenter Content="{Binding}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Border Style="{StaticResource Card}" Padding="18,16" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="How the limits filled up" Style="{StaticResource CardTitle}" />
+                    <TextBlock Text="Every reading The Dojo took, plus the ones from your /usage commands. A white tick on a meter above marks an even pace through the window."
+                               Style="{StaticResource Muted}" TextWrapping="Wrap" TextTrimming="None" Margin="0,-4,0,12" />
+                    <controls:LineChart Height="260" Series="{Binding History}" Format="Percent" MaxValue="100"
+                                        Visibility="{Binding HasHistory, Converter={StaticResource VisibleWhen}}" />
+                    <TextBlock Text="Not enough readings in this period yet. Leave The Dojo open, or run /usage in Claude Code now and then."
+                               Style="{StaticResource Secondary}" TextWrapping="Wrap"
+                               Visibility="{Binding HasHistory, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                    <ItemsControl ItemsSource="{Binding History}" Focusable="False" Margin="52,10,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type controls:LineSeries}">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
+                                    <Border Style="{StaticResource Swatch}" Background="{Binding Brush}" />
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource Muted}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TheDojo.Core/TheDojo.Core.csproj" />
+    <Project Path="src/TheDojo/TheDojo.csproj" />
+    <Project Path="src/TheDojo.Cli/TheDojo.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TheDojo.Tests/TheDojo.Tests.csproj" />
+    <Project Path="tests/TheDojo.UiTests/TheDojo.UiTests.csproj" />
+  </Folder>
+</Solution>

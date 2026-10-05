@@ -1,0 +1,112 @@
+<UserControl x:Class="TheDojo.Views.ToolsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TheDojo.ViewModels"
+             xmlns:controls="clr-namespace:TheDojo.Controls"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:ToolsViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="Panel" TargetType="Border" BasedOn="{StaticResource Card}">
+            <Setter Property="Margin" Value="0,0,12,12" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0,0,4,24">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding Tiles}" Focusable="False">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.7*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Panel}" Padding="6,12,6,6">
+                    <DataGrid ItemsSource="{Binding Tools}" MaxHeight="560" AutomationProperties.AutomationId="ToolGrid">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tool" Binding="{Binding Name}" Width="1.3*" ElementStyle="{StaticResource CellText}" />
+                            <DataGridTemplateColumn Header="Calls" Width="*" SortMemberPath="Calls">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="56" />
+                                            </Grid.ColumnDefinitions>
+                                            <controls:ShareBar Height="5" Value="{Binding Share}" Fill="{StaticResource SeriesBlueBrush}" VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="1" Text="{Binding Calls, StringFormat=N0}" Style="{StaticResource CellNumber}" />
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Failed" Binding="{Binding ErrorRateText}" SortMemberPath="ErrorRate" Width="62" ElementStyle="{StaticResource CellNumber}" HeaderStyle="{StaticResource RightHeader}" />
+                            <DataGridTextColumn Header="Denied" Binding="{Binding Denied}" Width="62" ElementStyle="{StaticResource CellNumber}" HeaderStyle="{StaticResource RightHeader}" />
+                            <DataGridTextColumn Header="Avg" Binding="{Binding AverageText}" SortMemberPath="AverageMs" Width="56" ElementStyle="{StaticResource CellNumber}" HeaderStyle="{StaticResource RightHeader}" />
+                            <DataGridTextColumn Header="p95" Binding="{Binding P95Text}" Width="56" ElementStyle="{StaticResource CellNumber}" HeaderStyle="{StaticResource RightHeader}" />
+                            <DataGridTextColumn Header="Lines" Binding="{Binding Lines}" Width="100" ElementStyle="{StaticResource CellNumber}" HeaderStyle="{StaticResource RightHeader}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+                <StackPanel Grid.Column="1">
+                    <Border Style="{StaticResource Panel}" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Subagents" Style="{StaticResource CardTitle}" />
+                            <ItemsControl ItemsSource="{Binding Subagents}" Focusable="False" />
+                            <TextBlock Text="No subagents in this period." Style="{StaticResource Muted}" Visibility="{Binding Subagents, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                        </StackPanel>
+                    </Border>
+                    <Border Style="{StaticResource Panel}" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="Programs run in the shell" Style="{StaticResource CardTitle}" />
+                            <ItemsControl ItemsSource="{Binding Programs}" Focusable="False" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Text="MCP servers" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding McpServers}" Focusable="False" />
+                        <TextBlock Text="None used." Style="{StaticResource Muted}" Visibility="{Binding McpServers, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Text="Skills" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding Skills}" Focusable="False" />
+                        <TextBlock Text="None used." Style="{StaticResource Muted}" Visibility="{Binding Skills, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource Panel}">
+                    <StackPanel>
+                        <TextBlock Text="Slash commands" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding Commands}" Focusable="False" />
+                        <TextBlock Text="None used." Style="{StaticResource Muted}" Visibility="{Binding Commands, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="3" Style="{StaticResource Panel}" Margin="0,0,0,12">
+                    <StackPanel>
+                        <TextBlock Text="Errors and interruptions" Style="{StaticResource CardTitle}" />
+                        <ItemsControl ItemsSource="{Binding Errors}" Focusable="False" />
+                        <TextBlock Text="None." Style="{StaticResource Muted}" Visibility="{Binding Errors, Converter={StaticResource VisibleWhen}, ConverterParameter=Invert}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

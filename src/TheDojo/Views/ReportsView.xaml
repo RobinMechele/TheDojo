@@ -1,0 +1,46 @@
+<UserControl x:Class="TheDojo.Views.ReportsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:TheDojo.ViewModels"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance vm:ReportsViewModel}">
+    <Grid Margin="0,0,0,20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="0,0,14,0">
+            <Border Style="{StaticResource Card}" Padding="18,16" Margin="0,0,0,12">
+                <StackPanel>
+                    <TextBlock Text="Report" Style="{StaticResource CardTitle}" />
+                    <TextBlock Text="The selected period, agent and project, with your score and lessons. Good for a weekly look back or to share with your team."
+                               Style="{StaticResource Muted}" TextWrapping="Wrap" TextTrimming="None" Margin="0,-4,0,12" />
+                    <CheckBox Style="{StaticResource ToggleSwitch}" IsChecked="{Binding IncludePrompts}" Margin="0,0,0,14">
+                        <TextBlock Text="Include prompt text" Margin="8,0,0,0" />
+                    </CheckBox>
+                    <Button Style="{StaticResource PrimaryButton}" Content="Save as Markdown…" Command="{Binding SaveMarkdownCommand}" HorizontalAlignment="Stretch" Margin="0,0,0,8" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Save as JSON…" Command="{Binding SaveJsonCommand}" HorizontalAlignment="Stretch" Margin="0,0,0,8" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Copy Markdown" Command="{Binding CopyMarkdownCommand}" HorizontalAlignment="Stretch" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource Card}" Padding="18,16">
+                <StackPanel>
+                    <TextBlock Text="Raw data (CSV)" Style="{StaticResource CardTitle}" />
+                    <TextBlock Text="For spreadsheets and your own analysis." Style="{StaticResource Muted}" Margin="0,-4,0,12" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Model calls…" Command="{Binding ExportCallsCommand}" HorizontalAlignment="Stretch" Margin="0,0,0,8" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Sessions…" Command="{Binding ExportSessionsCommand}" HorizontalAlignment="Stretch" Margin="0,0,0,8" />
+                    <Button Style="{StaticResource SecondaryButton}" Content="Tool calls…" Command="{Binding ExportToolsCommand}" HorizontalAlignment="Stretch" />
+                </StackPanel>
+            </Border>
+            <TextBlock Text="{Binding Status}" Style="{StaticResource Secondary}" TextWrapping="Wrap" Margin="2,12,0,0" />
+        </StackPanel>
+
+        <Border Grid.Column="1" Style="{StaticResource Card}" Padding="4">
+            <TextBox Text="{Binding Preview, Mode=OneWay}" IsReadOnly="True" FontFamily="{StaticResource MonoFont}" FontSize="12"
+                     TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0"
+                     Background="Transparent" AcceptsReturn="True" AutomationProperties.AutomationId="ReportPreview" />
+        </Border>
+    </Grid>
+</UserControl>

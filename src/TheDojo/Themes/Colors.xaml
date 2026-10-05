@@ -1,0 +1,90 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Surfaces and text (dark only; the dojo is lit by its screens) -->
+    <Color x:Key="WindowColor">#0A0E13</Color>
+    <Color x:Key="SidebarColor">#0D1218</Color>
+    <Color x:Key="SurfaceColor">#141924</Color>
+    <Color x:Key="SurfaceRaisedColor">#1A2030</Color>
+    <Color x:Key="SurfaceHoverColor">#1F2638</Color>
+    <Color x:Key="BorderColor">#232B3B</Color>
+    <Color x:Key="BorderStrongColor">#2F3950</Color>
+    <Color x:Key="GridLineColor">#222A39</Color>
+    <Color x:Key="TextColor">#E6E9F2</Color>
+    <Color x:Key="TextSecondaryColor">#A3ACC2</Color>
+    <Color x:Key="TextMutedColor">#6B7590</Color>
+
+    <!-- UI accent: the green of falling code. Only for navigation and actions, never for data. -->
+    <Color x:Key="AccentColor">#3EE08F</Color>
+    <Color x:Key="AccentHoverColor">#6BEBAA</Color>
+    <Color x:Key="AccentDimColor">#1F3EE08F</Color>
+
+    <!-- Data: categorical slots validated on the dark surface (dataviz reference palette).
+         Colour follows the entity: Claude is always orange, Copilot always blue. -->
+    <Color x:Key="ClaudeColor">#D95926</Color>
+    <Color x:Key="CopilotColor">#3987E5</Color>
+    <Color x:Key="SeriesBlueColor">#3987E5</Color>
+    <Color x:Key="SeriesAquaColor">#199E70</Color>
+    <Color x:Key="SeriesVioletColor">#9085E9</Color>
+
+    <!-- Sequential blue ramp, dark surface: low values recede toward the surface. -->
+    <Color x:Key="Seq0Color">#1A2234</Color>
+    <Color x:Key="Seq1Color">#104281</Color>
+    <Color x:Key="Seq2Color">#1C5CAB</Color>
+    <Color x:Key="Seq3Color">#2A78D6</Color>
+    <Color x:Key="Seq4Color">#5598E7</Color>
+    <Color x:Key="Seq5Color">#9EC5F4</Color>
+
+    <!-- Status: reserved, always with an icon and a label -->
+    <Color x:Key="GoodColor">#0CA30C</Color>
+    <Color x:Key="WarningColor">#FAB219</Color>
+    <Color x:Key="SeriousColor">#EC835A</Color>
+    <Color x:Key="CriticalColor">#D03B3B</Color>
+
+    <SolidColorBrush x:Key="WindowBrush" Color="{StaticResource WindowColor}" />
+    <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource SidebarColor}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+    <SolidColorBrush x:Key="SurfaceRaisedBrush" Color="{StaticResource SurfaceRaisedColor}" />
+    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="{StaticResource SurfaceHoverColor}" />
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}" />
+    <SolidColorBrush x:Key="BorderStrongBrush" Color="{StaticResource BorderStrongColor}" />
+    <SolidColorBrush x:Key="GridLineBrush" Color="{StaticResource GridLineColor}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}" />
+    <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMutedColor}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="{StaticResource AccentHoverColor}" />
+    <SolidColorBrush x:Key="AccentDimBrush" Color="{StaticResource AccentDimColor}" />
+    <SolidColorBrush x:Key="ClaudeBrush" Color="{StaticResource ClaudeColor}" />
+    <SolidColorBrush x:Key="CopilotBrush" Color="{StaticResource CopilotColor}" />
+    <SolidColorBrush x:Key="SeriesBlueBrush" Color="{StaticResource SeriesBlueColor}" />
+    <SolidColorBrush x:Key="SeriesAquaBrush" Color="{StaticResource SeriesAquaColor}" />
+    <SolidColorBrush x:Key="SeriesVioletBrush" Color="{StaticResource SeriesVioletColor}" />
+    <SolidColorBrush x:Key="GoodBrush" Color="{StaticResource GoodColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+    <SolidColorBrush x:Key="SeriousBrush" Color="{StaticResource SeriousColor}" />
+    <SolidColorBrush x:Key="CriticalBrush" Color="{StaticResource CriticalColor}" />
+    <SolidColorBrush x:Key="SelectionBrush" Color="#2A3EE08F" />
+    <SolidColorBrush x:Key="SubtleFillBrush" Color="#0DFFFFFF" />
+    <SolidColorBrush x:Key="SubtleFillHoverBrush" Color="#17FFFFFF" />
+    <SolidColorBrush x:Key="TrackBrush" Color="#202838" />
+
+    <LinearGradientBrush x:Key="AppBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#0C1117" />
+        <GradientStop Offset="1" Color="#090C11" />
+    </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="GlowBrush" Center="0.1,0" GradientOrigin="0.1,0" RadiusX="0.8" RadiusY="0.6">
+        <GradientStop Offset="0" Color="#143EE08F" />
+        <GradientStop Offset="1" Color="#003EE08F" />
+    </RadialGradientBrush>
+
+    <!-- Typography -->
+    <FontFamily x:Key="UiFont">Segoe UI Variable Text, Segoe UI</FontFamily>
+    <FontFamily x:Key="DisplayFont">Segoe UI Variable Display, Segoe UI</FontFamily>
+    <FontFamily x:Key="MonoFont">Cascadia Mono, Cascadia Code, Consolas</FontFamily>
+    <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+
+    <CornerRadius x:Key="CardRadius">12</CornerRadius>
+    <CornerRadius x:Key="ControlRadius">8</CornerRadius>
+</ResourceDictionary>
