@@ -36,7 +36,7 @@ jobs:
           $none = Join-Path $env:RUNNER_TEMP "none"
           ./artifacts/cli/dojo.exe summary --range 7d --offline --claude-home $none --copilot-home $none --cache (Join-Path $env:RUNNER_TEMP "dojo-cache")
           if ($LASTEXITCODE -ne 0) { throw "dojo.exe failed" }
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
